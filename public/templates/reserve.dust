@@ -1,0 +1,37 @@
+{>"layouts/master" /}
+
+{<body}
+    <div style="display:inline-block;margin-top:20px;">
+       <form class="form-inline">
+            <input type="hidden" name="_csrf" value="{_csrf}" />
+            <div class="form-group">
+                <label for="exampleInputName2">预约电话号码：</label>
+                <input type="text" class="form-control" name="telephone" id="telephone" placeholder="Telephone">
+            </div> 
+            <button type="button" class="btn btn-default" id="testCommit">提交</button> 
+        </form> 
+        <div class="form-group"  id="appenddiv"></div>
+    </div> 
+{/body}
+
+<script type="text/javascript">
+$(function() { 
+   $("#testCommit").click(function(){
+   		$("#appenddiv").empty();
+        //采用Promise模式
+        $.post("/reserve",{telephone:$("#telephone").val(),_csrf:$('[name="_csrf"]').val()}).then(function(todo,status){
+            //success
+            if(status=="success"){
+                if(todo.userid){
+                    $("#appenddiv").append("<h4>请到对应区域领取"+todo.userid+"号牌!</h4>");
+                }else{
+                    $("#appenddiv").append("<h4>该手机号没有预约信息!</h4>");
+                } 
+            }
+        },function () {
+            // failure
+            $("#appenddiv").append("<h3>服务出错，请稍后再试!</h3>");
+        });
+	});
+});
+</script>

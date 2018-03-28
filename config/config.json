@@ -44,16 +44,17 @@
                 "arguments": [{ "directory": "path:./controllers" }]
             }
         },
-        "csrf": {
+        "appsec": {
             "enabled": true,
-            "priority": 111,
-            "route": "/((?!reply))*",
+            "priority": 110,
             "module": {
                 "name": "lusca",
-                "method": "csrf",
-                "arguments": [{}]
+                "arguments": [{
+                    "xframe": "SAMEORIGIN",
+                    "p3p": false,
+                    "csp": false
+                }]
             }
-        }
-
+        } 
     }
 }

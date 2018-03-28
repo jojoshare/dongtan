@@ -6,7 +6,7 @@
             <input type="hidden" name="_csrf" value="{_csrf}" />
             <div class="form-group">
                 <label for="exampleInputName2">预约电话号码：</label>
-                <input type="text" class="form-control" name="telephone" id="telephone" placeholder="Telephone">
+                <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Telephone">
             </div> 
             <button type="button" class="btn btn-default" id="testCommit">提交</button> 
         </form> 
@@ -19,7 +19,7 @@ $(function() {
    $("#testCommit").click(function(){
    		$("#appenddiv").empty();
         //采用Promise模式
-        $.post("/reserve",{telephone:$("#telephone").val(),_csrf:$('[name="_csrf"]').val()}).then(function(todo,status){
+        $.post("/reserve",{mobile:$("#mobile").val(),_csrf:$('[name="_csrf"]').val()}).then(function(todo,status){
             //success
             if(status=="success"){
                 if(todo.userid){

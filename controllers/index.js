@@ -21,7 +21,7 @@ module.exports = function (router) {
         var reqObj = req.body;
         console.log("reserve:"+JSON.stringify(reqObj));
         co(function *(){
-  			var reserves = yield reserveModel.findOne({telephone:reqObj.telephone});
+  			var reserves = yield reserveModel.findOne({$or:[{mobileM:reqObj.mobile},{mobileF:reqObj.mobile}]});
  			console.log("reserves:"+JSON.stringify(reserves));
  			res.send(reserves);
 		}).catch((err)=>{
@@ -29,7 +29,7 @@ module.exports = function (router) {
 		}); 
     });
 
-    //短信发送平台
+    //短信发送
     router.get('/sendMassage', function (req, res) {
         // 需要发送短信的手机号码
         var phoneNumbers = ["13661844540"];
@@ -38,7 +38,7 @@ module.exports = function (router) {
         // 签名
         var smsSign = "上实东滩"; 
         co(function *(){
-            var reserves = yield reserveModel.find({},{telephone:1});
+            var reserves = yield reserveModel.find({},{mobile:1});
             console.log("reserves:"+JSON.stringify(reserves));
             // 实例化QcloudSms
             var qcloudsms = QcloudSms(appid, appkey);
@@ -59,22 +59,41 @@ module.exports = function (router) {
         }); 
     });
 
-    //短信接受平台
+    //短信回复
     router.post('/replyMassage', function (req, res) { 
         var reqObj = req.body;
         console.log("replyMassage_reqObj: "+JSON.stringify(reqObj));
-        var maxNum = 10;  // 单次拉取最大量
-        var qcloudsms = QcloudSms(appid, appkey);
-        var spuller = qcloudsms.SmsStatusPuller(); 
-        // 拉取回复
-        spuller.pullReply(maxNum,function (err, result, resData) {
-            if (err){
-                console.log("err: ", err);
-            }else{
-                console.log("replyMassage:"+JSON.stringify(resData));
-                res.send(resData); 
-            } 
-        })  
+        co(function *(){ 
+            var hasReply = yield reserveModel.findOne({mobile:reqObj.mobile,text:{$exists:true}});
+            if(hasReply){
+                console.log("hasReply:"+reqObj.mobile);
+            }else if(["Y","N"].includes(reqObj.text)){ 
+                if(reqObj.text == "Y"){
+                    //userid的编码规则
+                    reqObj.userid = "A1";
+                    var smsType = 0; // Enum{0: 普通短信, 1: 营销短信}
+                    var ssender = qcloudsms.SmsSingleSender();
+                    ssender.send(smsType, 86, reqObj.mobile,"【上实东滩】您的凭证是:"+reqObj.userid, "", "");
+                }
+                var saveModel = new reserveModel(reqObj); 
+                yield saveModel.save();
+            }
+
+            var maxNum = 10;  // 单次拉取最大量
+            var qcloudsms = QcloudSms(appid, appkey);
+            var spuller = qcloudsms.SmsStatusPuller(); 
+            // 拉取回复
+            spuller.pullReply(maxNum,function (err, result, resData) {
+                if (err){
+                    console.log("err: ", err);
+                }else{
+                    console.log("replyMassage:"+JSON.stringify(resData));
+                    res.send(resData); 
+                } 
+            }) 
+         }).catch((err)=>{
+            console.error(err.stack);
+        });  
     });
 
 };

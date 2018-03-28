@@ -1,7 +1,7 @@
 'use strict'; 
 var mongoose = require('mongoose');  
 var reserveSchema = new mongoose.Schema({
-    "﻿userid" : Number,
+    "﻿userid" : String,
     "type" : String,
     "name" : String,
     "sex" : String,
@@ -12,11 +12,11 @@ var reserveSchema = new mongoose.Schema({
     "school" : String,
     "area" : String,
     "nameM" : String,
-    "mobileM" : String,
+    "mobileM" : Number,
     "workplaceM" : String,
     "educationM" : String,
     "nameF" : String,
-    "mobileF" : String,
+    "mobileF" : Number,
     "workplaceF" : String,
     "educationF" : String,
     //回复

@@ -1,14 +1,14 @@
 {>"layouts/master" /}
 
 {<body}
-    <div style="display:inline-block;margin-top:20px;">
+    <div style="display:inline-block;margin-top:40px;">
        <form class="form-inline">
             <input type="hidden" name="_csrf" value="{_csrf}" />
             <div class="form-group">
                 <label for="exampleInputName2"></label>
                 <input type="text" class="form-control" name="mobile" id="mobile" placeholder="请输入预约电话号码">
             </div> 
-            <button type="button" class="btn btn-default" id="testCommit">提交</button> 
+            <button type="button" class="btn btn-info" id="testCommit">提交</button> 
         </form> 
         <div class="form-group"  id="appenddiv"></div>
     </div> 

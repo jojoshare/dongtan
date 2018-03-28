@@ -5,8 +5,8 @@
        <form class="form-inline">
             <input type="hidden" name="_csrf" value="{_csrf}" />
             <div class="form-group">
-                <label for="exampleInputName2">预约电话号码：</label>
-                <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Telephone">
+                <label for="exampleInputName2"></label>
+                <input type="text" class="form-control" name="mobile" id="mobile" placeholder="请输入预约电话号码">
             </div> 
             <button type="button" class="btn btn-default" id="testCommit">提交</button> 
         </form> 

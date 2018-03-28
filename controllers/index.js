@@ -19,7 +19,7 @@ module.exports = function (router) {
     //现场签到取号
     router.post('/reserve', function (req, res) {
         var reqObj = req.body;
-        console.log("reserve:"+JSON.stringify(reqObj));
+        console.log("reserve_reqObj:"+JSON.stringify(reqObj));
         co(function *(){
   			var reserves = yield reserveModel.findOne({$or:[{mobileM:reqObj.mobile},{mobileF:reqObj.mobile}]});
  			console.log("reserves:"+JSON.stringify(reserves));

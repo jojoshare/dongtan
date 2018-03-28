@@ -19,6 +19,10 @@ var reserveSchema = new mongoose.Schema({
     mobileF : Number,
     workplaceF : String,
     educationF : String,
+    hasCome:{
+        type:String,
+        default:"N"
+    },
     //回复
     mobile: String, 
     time: Number,

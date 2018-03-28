@@ -23,6 +23,10 @@ module.exports = function (router) {
         co(function *(){
   			var reserves = yield reserveModel.findOne({$or:[{mobileM:reqObj.mobile},{mobileF:reqObj.mobile}]});
  			console.log("reserves:"+JSON.stringify(reserves));
+            if(reserves){
+                reserves.hasCome = "Y";
+                yield reserves.save();
+            }
  			res.send(reserves);
 		}).catch((err)=>{
   			console.error(err.stack);

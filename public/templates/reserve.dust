@@ -23,9 +23,9 @@ $(function() {
             //success
             if(status=="success"){
                 if(todo.userid){
-                    $("#appenddiv").append("<h4>请到对应区域领取"+todo.userid+"号牌!</h4>");
+                    $("#appenddiv").append("<h4 style='color:red'>请到对应区域领取"+todo.userid+"号牌!</h4>");
                 }else{
-                    $("#appenddiv").append("<h4>该手机号没有预约信息!</h4>");
+                    $("#appenddiv").append("<h4 style='color:red'>该手机号没有预约信息!</h4>");
                 } 
             }
         },function () {

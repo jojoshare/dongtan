@@ -10,6 +10,7 @@
     "all": "npm run build && npm run test"
   },
   "dependencies": {
+    "co": "^4.6.0",
     "construx": "^1.0.0",
     "construx-copier": "^1.0.0",
     "construx-dustjs": "^1.1.0",
@@ -18,6 +19,9 @@
     "express": "^4.12.2",
     "kraken-js": "^2.0.0",
     "makara": "^2.0.3",
+    "mongoose": "^5.0.12",
+    "mongoose-paginate": "^5.0.3",
+    "qcloudsms_js": "^0.1.0",
     "requirejs": "^2.3.5"
   },
   "devDependencies": {

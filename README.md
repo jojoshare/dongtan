@@ -1,3 +1,7 @@
+工具软件：
+node（npm）、mongodb(robomongdb)、pm2、sublime、webstorm、TortoiseGit（GitHub）、secureCRT、FileZilla、
+
+
 【启动数据库】sh /app/mongodb/startMongoDB.sh
 【启动node应用】pm2 start /app/nodeapp/app.json 
 【查看进程】 ps -ef | grep node
